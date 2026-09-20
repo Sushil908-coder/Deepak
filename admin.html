@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Teacher Admin Panel</title>
+
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+
+  <body>
+    <!-- ========================================
+         LOGIN PAGE
+    ========================================= -->
+
+    <div id="loginPage" class="login-page">
+      <div class="login-box">
+        <div class="login-icon">👩‍🏫</div>
+
+        <h1>Teacher Admin</h1>
+
+        <p>Login to manage your portfolio</p>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label> Email </label>
+
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="teacher@gmail.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label> Password </label>
+
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Enter password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="login-btn">Login</button>
+
+          <p id="loginError" class="error-message"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ========================================
+         DASHBOARD
+    ========================================= -->
+
+    <div id="dashboard" class="dashboard hidden">
+      <!-- ====================================
+             SIDEBAR
+        ===================================== -->
+
+      <aside class="sidebar">
+        <div class="logo">👩‍🏫 Teacher Panel</div>
+
+        <nav>
+          <!-- DASHBOARD -->
+
+          <button type="button" class="nav-item active" id="dashboardNav">
+            📊 Dashboard
+          </button>
+
+          <!-- MESSAGES -->
+
+          <button type="button" class="nav-item" id="messagesNav">
+            📩 Messages
+          </button>
+
+          <!-- ACTIVITIES -->
+
+          <button type="button" class="nav-item" id="activitiesNav">
+            📝 Activities
+          </button>
+
+          <!-- ACHIEVEMENTS -->
+
+          <button type="button" class="nav-item" id="achievementsNav">
+            🏆 Achievements
+          </button>
+
+          <!-- GALLERY -->
+
+          <button type="button" class="nav-item" id="galleryNav">
+            🖼️ Gallery
+          </button>
+        </nav>
+
+        <!-- LOGOUT -->
+
+        <button type="button" id="logoutBtn" class="logout-btn">
+          🚪 Logout
+        </button>
+      </aside>
+
+      <!-- ====================================
+             MAIN CONTENT
+        ===================================== -->
+
+      <main class="main-content">
+        <!-- =================================
+                 TOP BAR
+            ================================== -->
+
+        <header class="topbar">
+          <div>
+            <h1>Dashboard</h1>
+
+            <p>Welcome back, Teacher</p>
+          </div>
+
+          <div class="teacher-profile">
+            <div class="avatar">T</div>
+
+            <span id="teacherEmail"> Teacher </span>
+          </div>
+        </header>
+
+        <!-- =================================
+                 DASHBOARD SECTION
+            ================================== -->
+
+        <section id="dashboardSection" class="dashboard-section">
+          <!-- STAT CARDS -->
+
+          <section class="stats">
+            <!-- TOTAL MESSAGES -->
+
+            <div class="stat-card">
+              <div class="stat-icon">📩</div>
+
+              <div>
+                <p>Total Messages</p>
+
+                <h2 id="totalMessages">0</h2>
+              </div>
+            </div>
+
+            <!-- NEW MESSAGES -->
+
+            <div class="stat-card">
+              <div class="stat-icon">🆕</div>
+
+              <div>
+                <p>New Messages</p>
+
+                <h2 id="newMessages">0</h2>
+              </div>
+            </div>
+
+            <!-- VISITORS -->
+
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+
+              <div>
+                <p>Visitors</p>
+
+                <h2 id="visitorCount">0</h2>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- =================================
+                 MESSAGES SECTION
+            ================================== -->
+
+        <section id="messagesSection" class="messages-section hidden">
+          <div class="section-header">
+            <div>
+              <h2>Visitor Messages</h2>
+
+              <p>Messages received from your portfolio</p>
+            </div>
+
+            <button type="button" id="refreshBtn" class="refresh-btn">
+              🔄 Refresh
+            </button>
+          </div>
+
+          <!-- LOADING -->
+
+          <div id="loading" class="loading">Loading messages...</div>
+
+          <!-- EMPTY -->
+
+          <div id="emptyMessages" class="empty hidden">
+            <div class="empty-icon">📭</div>
+
+            <h3>No Messages Yet</h3>
+
+            <p>Visitor messages will appear here.</p>
+          </div>
+
+          <!-- MESSAGES -->
+
+          <div id="messagesContainer" class="messages-container"></div>
+        </section>
+
+        <!-- =================================
+                 ACTIVITIES SECTION
+            ================================== -->
+
+        <section id="activitiesSection" class="activities-section hidden">
+          <div class="section-header">
+            <div>
+              <h2>Activities</h2>
+
+              <p>Manage your teaching activities</p>
+            </div>
+
+            <button type="button" id="addActivityBtn" class="refresh-btn">
+              + Add Activity
+            </button>
+          </div>
+
+          <!-- =================================
+                     ADD ACTIVITY FORM
+                ================================== -->
+
+          <div id="activityFormBox" class="activity-form-box hidden">
+            <h3>Add New Activity</h3>
+
+            <form id="activityForm">
+              <!-- TITLE + DATE -->
+
+              <div class="form-row">
+                <!-- TITLE -->
+
+                <div class="form-group">
+                  <label> Activity Title </label>
+
+                  <input
+                    type="text"
+                    id="activityTitle"
+                    placeholder="Science Exhibition"
+                    required
+                  />
+                </div>
+
+                <!-- DATE -->
+
+                <div class="form-group">
+                  <label> Date </label>
+
+                  <input type="date" id="activityDate" required />
+                </div>
+              </div>
+
+              <!-- DESCRIPTION -->
+
+              <div class="form-group">
+                <label> Description </label>
+
+                <textarea
+                  id="activityDescription"
+                  rows="5"
+                  placeholder="Write about this activity..."
+                  required
+                ></textarea>
+              </div>
+
+              <!-- IMAGE -->
+
+              <div class="form-group">
+                <label> Activity Image </label>
+
+                <input
+                  type="file"
+                  id="activityImage"
+                  accept="image/*"
+                  required
+                />
+              </div>
+
+              <!-- BUTTONS -->
+
+              <div class="form-buttons">
+                <button type="submit" class="save-btn">Add Activity</button>
+
+                <button type="button" id="cancelActivityBtn" class="cancel-btn">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- =================================
+                     ACTIVITIES LIST
+                ================================== -->
+
+          <div id="activitiesContainer" class="activities-container"></div>
+        </section>
+
+        <!-- =====================================
+     ACHIEVEMENTS SECTION
+===================================== -->
+
+        <section id="achievementsSection" class="admin-section hidden">
+          <div class="section-header">
+            <div>
+              <h2>Achievements</h2>
+              <p>Manage teacher achievements and awards.</p>
+            </div>
+
+            <button id="addAchievementBtn" class="primary-btn">
+              + Add Achievement
+            </button>
+          </div>
+
+          <!-- ADD ACHIEVEMENT FORM -->
+
+          <div id="achievementFormBox" class="form-box hidden">
+            <h3>Add Achievement</h3>
+
+            <form id="achievementForm">
+              <div class="form-group">
+                <label for="achievementTitle"> Achievement Title </label>
+
+                <input
+                  type="text"
+                  id="achievementTitle"
+                  placeholder="Example: Best Teacher Award"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="achievementDate"> Date </label>
+
+                <input type="date" id="achievementDate" required />
+              </div>
+
+              <div class="form-group">
+                <label for="achievementDescription"> Description </label>
+
+                <textarea
+                  id="achievementDescription"
+                  rows="5"
+                  placeholder="Describe the achievement..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="achievementImage"> Achievement Image </label>
+
+                <input type="file" id="achievementImage" accept="image/*" />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="primary-btn">
+                  Save Achievement
+                </button>
+
+                <button
+                  type="button"
+                  id="cancelAchievementBtn"
+                  class="secondary-btn"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- ACHIEVEMENTS LIST -->
+
+          <div id="achievementsContainer">
+            <div class="activity-loading">Loading achievements...</div>
+          </div>
+        </section>
+
+        <!-- =====================================
+     GALLERY SECTION
+===================================== -->
+
+        <section id="gallerySection" class="admin-section hidden">
+          <div class="section-header">
+            <div>
+              <h2>Gallery</h2>
+              <p>Manage teacher photos and memories.</p>
+            </div>
+
+            <button id="addGalleryBtn" class="primary-btn">+ Add Photo</button>
+          </div>
+
+          <!-- ADD GALLERY FORM -->
+
+          <div id="galleryFormBox" class="form-box hidden">
+            <h3>Add Gallery Photo</h3>
+
+            <form id="galleryForm">
+              <div class="form-group">
+                <label for="galleryTitle"> Photo Title </label>
+
+                <input
+                  type="text"
+                  id="galleryTitle"
+                  placeholder="Example: Annual Function"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="galleryImage"> Select Photo </label>
+
+                <input
+                  type="file"
+                  id="galleryImage"
+                  accept="image/*"
+                  required
+                />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="primary-btn">Upload Photo</button>
+
+                <button
+                  type="button"
+                  id="cancelGalleryBtn"
+                  class="secondary-btn"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- GALLERY LIST -->
+
+          <div id="adminGalleryContainer" class="admin-gallery-grid">
+            <div class="activity-loading">Loading gallery...</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ========================================
+         SUPABASE
+    ========================================= -->
+
+    <!-- ADMIN JAVASCRIPT -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>
